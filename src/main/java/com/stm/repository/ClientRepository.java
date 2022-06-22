@@ -12,4 +12,5 @@ public interface ClientRepository extends CrudRepository<Client, Integer> {
     List<Client> findAll();
     Client getByLogin(String login);
     Client getById(int id);
+    Integer getIdByLogin(String login);
 }

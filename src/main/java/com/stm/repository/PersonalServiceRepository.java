@@ -11,5 +11,5 @@ public interface PersonalServiceRepository extends CrudRepository<PersonalServic
     @Override
     List<PersonalService> findAll();
     PersonalService getById(int id);
-    List<PersonalService> findAllByPersonalId(int id);
+    List<PersonalService> findAllByPersonalIdOrderById(int id);
 }

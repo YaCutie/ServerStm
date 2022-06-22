@@ -39,7 +39,7 @@ public class AuthenticationServicempl implements AuthenticationService {
 
     @Inject
     public void main() {
-
+//        clientRepository.save(new Client("впываыв","ываыва","ываыа",LocalDate.now(),"qwыавываe","asdaыфds","asdad","asdsa"));
     }
 
     @Override
@@ -75,12 +75,11 @@ public class AuthenticationServicempl implements AuthenticationService {
                     token = jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact();
                     usersTokenRepository.getUsersTokenList().add(new UsersToken(rqLogin, "Bearer " + token));
                 }
-
             }
             LoginRsDto loginRsDto = new LoginRsDto();
             loginRsDto.setVerification(ver);
             loginRsDto.setToken(token);
-
+            loginRsDto.setId(clientRepository.getIdByLogin(rqLogin));
             return loginRsDto;
         } catch (Error e) {
             return null;
@@ -130,6 +129,7 @@ public class AuthenticationServicempl implements AuthenticationService {
         RegistrationRsDto registrationRsDto = new RegistrationRsDto();
         registrationRsDto.setVerification(ver);
         registrationRsDto.setToken(token);
+        registrationRsDto.setId(clientRepository.getIdByLogin(rqLogin));
         return registrationRsDto;
     }
 
@@ -142,25 +142,6 @@ public class AuthenticationServicempl implements AuthenticationService {
         String[] payloadData = payload.split(",");
         String[] date = payloadData[1].split(":");
         return date[1];
-    }
-
-    public boolean passwordMath(Integer id, String password) {
-        Optional<Client> candidate = Optional.ofNullable(clientRepository.getById(id));
-        if (candidate.isEmpty()) {
-            return false;
-        }
-        Client client = candidate.get();
-        byte[] salt = decodeB64(client.getPassword());
-        byte[] hashedPassword = decodeB64(client.getPassword());
-        MessageDigest md;
-        try {
-            md = MessageDigest.getInstance("SHA-512");
-        } catch (NoSuchAlgorithmException e) {
-            return false;
-        }
-        md.update(salt);
-        byte[] toCheck = md.digest(password.getBytes(StandardCharsets.UTF_8));
-        return Arrays.equals(toCheck, hashedPassword);
     }
 
     private String encodeB64(byte[] data) {

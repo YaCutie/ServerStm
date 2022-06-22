@@ -1,5 +1,6 @@
 package com.stm.dto;
 
+
 public class LoginRqDto {
     private String login;
     private String password;

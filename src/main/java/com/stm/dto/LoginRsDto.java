@@ -4,6 +4,7 @@ public class LoginRsDto {
     private boolean verification;
     private String token;
 
+    private int id;
 
     public boolean isVerification() {
         return verification;
@@ -17,5 +18,13 @@ public class LoginRsDto {
     }
     public String getToken() {
         return this.token;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

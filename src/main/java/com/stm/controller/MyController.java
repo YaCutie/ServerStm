@@ -1,15 +1,16 @@
 package com.stm.controller;
 
-import com.stm.Entity.Client;
-import com.stm.Entity.Personal;
-import com.stm.Entity.UsersToken;
+import com.stm.Entity.*;
 import com.stm.autentification.AuthenticationService;
+import com.stm.dto.GetAllDoctorsScheduleByPersonalIdRqDto;
+import com.stm.dto.GetAllServicesByPersonalIdRqDto;
 import com.stm.dto.GetClientByIdRqDto;
 import com.stm.dto.GetClientByIdRsDto;
 import com.stm.repository.UsersTokenRepository;
 import com.stm.service.UserService;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
+import io.micronaut.http.annotation.Post;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import jakarta.inject.Inject;
@@ -51,6 +52,7 @@ public class MyController {
             }
         }
         return null;
+        //return userService.getById(getUserByIdRqDto.getId());
     }
 
     @Get(value = "/personal/findall", consumes = MediaType.APPLICATION_JSON)
@@ -63,5 +65,46 @@ public class MyController {
             }
         }
         return null;
+        //        return userService.getAllPersonal();
+    }
+    @Post(value = "/personal/findallservices", consumes = MediaType.APPLICATION_JSON)
+    public List<PersonalService> getAllServiceByPersonal(@Header(AUTHORIZATION)String token,
+                                                         @Body GetAllServicesByPersonalIdRqDto getAllServicesByPersonalIdRqDto) throws SQLException {
+        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
+            String userToken = ut.getUserToken();
+            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
+            if (userToken.equals(token) || l > new Date().getTime()) {
+                return userService.getAllServiceByPersonal(getAllServicesByPersonalIdRqDto.getId());
+            }
+        }
+        return null;
+        //return userService.getAllServiceByPersonal(getAllServicesByPersonalIdRqDto.getId());
+    }
+    @Post(value = "/personal/findallschedule", consumes = MediaType.APPLICATION_JSON)
+    public List<Doctorsschedule> getAllDoctorsscheduleByPersonal(@Header(AUTHORIZATION)String token,
+                                                                 @Body GetAllDoctorsScheduleByPersonalIdRqDto getAllDoctorsScheduleByPersonalIdRqDto) throws SQLException {
+        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
+            String userToken = ut.getUserToken();
+            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
+            if (userToken.equals(token) || l > new Date().getTime()) {
+                return userService.getAllDoctorsscheduleByPersonal(getAllDoctorsScheduleByPersonalIdRqDto.getId());
+            }
+        }
+        return null;
+        //return userService.getAllDoctorsscheduleByPersonal(getAllDoctorsScheduleByPersonalIdRqDto.getId());
+    }
+
+    @Post(value = "/personal/findpersonbyid", consumes = MediaType.APPLICATION_JSON)
+    public Personal getPersonalById(@Header(AUTHORIZATION)String token,
+                                    @Body GetAllDoctorsScheduleByPersonalIdRqDto getAllDoctorsScheduleByPersonalIdRqDto) throws SQLException {
+        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
+            String userToken = ut.getUserToken();
+            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
+            if (userToken.equals(token) || l > new Date().getTime()) {
+                return userService.getPersonalById(getAllDoctorsScheduleByPersonalIdRqDto.getId());
+            }
+        }
+        return null;
+        //return userService.getPersonalById(getAllDoctorsScheduleByPersonalIdRqDto.getId());
     }
 }

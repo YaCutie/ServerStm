@@ -5,11 +5,11 @@ import com.stm.Entity.Client;
 public class GetClientByIdRsDto {
     private Client client;
 
-    public Client getUser() {
+    public Client getСlient() {
         return client;
     }
 
-    public void setUser(Client user) {
+    public void setСlient(Client client) {
         this.client = client;
     }
 }
