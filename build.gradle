@@ -28,6 +28,7 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.4.19'
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 }
 
 

@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public class Client {
     
     public Client(String surname, String name, String middlename, LocalDate dateOfBirth, String phone, String email, String login, String password){
-
         this.surname = surname;
         this.name = name;
         this.middlename = middlename;

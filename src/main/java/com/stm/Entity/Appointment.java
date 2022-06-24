@@ -1,11 +1,27 @@
 package com.stm.Entity;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table(name = "appointment")
 public class Appointment {
+
+    public Appointment(String receptionTime, Client clientid, Clinic clinicid, Personal personalid, Integer cabinetNumber, Statute status) throws ParseException {
+        Date date = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(receptionTime);
+        this.receptionTime = date.toInstant();
+        this.clientid = clientid;
+        this.clinicid = clinicid;
+        this.personalid = personalid;
+        this.cabinetNumber = cabinetNumber;
+        this.status = status;
+    }
+    public Appointment() {
+
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
