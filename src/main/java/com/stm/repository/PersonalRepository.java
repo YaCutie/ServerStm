@@ -14,5 +14,4 @@ public interface PersonalRepository extends CrudRepository<Personal, Integer> {
     List<Personal> findAll();
     Personal getById(int id);
     List<Personal> findAllOrderByExperience();
-
 }

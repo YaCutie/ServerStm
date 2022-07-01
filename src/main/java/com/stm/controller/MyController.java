@@ -63,7 +63,6 @@ public class MyController {
             }
         }
         return null;
-        //        return userService.getAllPersonal();
     }
     @Post(value = "/personal/findallservices", consumes = MediaType.APPLICATION_JSON)
     public List<PersonalService> getAllServiceByPersonal(@Header(AUTHORIZATION)String token,
@@ -76,7 +75,6 @@ public class MyController {
             }
         }
         return null;
-        //return userService.getAllServiceByPersonal(getAllServicesByPersonalIdRqDto.getId());
     }
     @Post(value = "/user/newappoitment", consumes = MediaType.APPLICATION_JSON)
     public boolean NewAppointment(@Header(AUTHORIZATION)String token,
