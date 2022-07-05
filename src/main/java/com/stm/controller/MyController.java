@@ -33,7 +33,7 @@ public class MyController {
         for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
+            if (userToken.equals(token) && l > new Date().getTime()) {
                 return userService.getList();
             }
         }
@@ -45,7 +45,7 @@ public class MyController {
         for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
+            if (userToken.equals(token) && l > new Date().getTime()) {
                 return userService.getById(getUserByIdRqDto.getId());
             }
         }
@@ -58,7 +58,7 @@ public class MyController {
         for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
+            if (userToken.equals(token) && l > new Date().getTime()) {
                 return userService.getAllPersonal();
             }
         }
@@ -70,7 +70,7 @@ public class MyController {
         for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
+            if (userToken.equals(token) && l > new Date().getTime()) {
                 return userService.getAllServiceByPersonal(getAllServicesByPersonalIdRqDto.getId());
             }
         }
@@ -82,7 +82,7 @@ public class MyController {
         for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
+            if (userToken.equals(token) && l > new Date().getTime()) {
                 boolean accept = false;
                 accept = userService.NewAppoitment(newAppointmentRqDto);
                 return accept;
@@ -97,7 +97,7 @@ public class MyController {
         for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
+            if (userToken.equals(token) && l > new Date().getTime()) {
                 return userService.GetAllAppointmentByUserId(getAllAppointmentByUserIdRqDto);
             }
         }
@@ -110,7 +110,7 @@ public class MyController {
         for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
+            if (userToken.equals(token) && l > new Date().getTime()) {
                 return userService.getAllDoctorsscheduleByPersonal(getAllDoctorsScheduleByPersonalIdRqDto.getId());
             }
         }
@@ -123,7 +123,7 @@ public class MyController {
         for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
             String userToken = ut.getUserToken();
             Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) || l > new Date().getTime()) {
+            if (userToken.equals(token) && l > new Date().getTime()) {
                 return userService.getPersonalById(getAllDoctorsScheduleByPersonalIdRqDto.getId());
             }
         }
@@ -136,7 +136,7 @@ public class MyController {
 //        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
 //            String userToken = ut.getUserToken();
 //            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-//            if (userToken.equals(token) || l > new Date().getTime()) {
+//            if (userToken.equals(token) && l > new Date().getTime()) {
 //                return userService.SendFile(sendFileRqDto);
 //            }
 //        }
