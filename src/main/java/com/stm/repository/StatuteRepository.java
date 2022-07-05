@@ -11,6 +11,6 @@ import java.util.List;
 public interface StatuteRepository extends JpaRepository<Statute, Integer> {
     @Override
     List<Statute> findAll();
-    Statute getById(int id);
+    Statute getStatuteById(int id);
 }
 

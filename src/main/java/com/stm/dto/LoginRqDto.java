@@ -1,6 +1,8 @@
 package com.stm.dto;
 
+import lombok.Builder;
 
+@Builder
 public class LoginRqDto {
     private String login;
     private String password;
