@@ -6,8 +6,8 @@ import com.stm.dto.GetClientByIdRsDto;
 import com.stm.dto.NewAppointmentRqDto;
 import com.stm.dto.SendFileRqDto;
 import com.stm.repository.*;
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import javax.activation.DataHandler;
@@ -22,34 +22,34 @@ import javax.mail.internet.MimeMultipart;
 import java.text.ParseException;
 import java.util.*;
 
-@Singleton
+@Service
 public class UserServiceImpl implements UserService {
 
-    @Inject
+    @Autowired
     ClientRepository clientRepository;
-    @Inject
+    @Autowired
     AppointmentRepository appointmentRepository;
-    @Inject
+    @Autowired
     PersonalRepository personalRepository;
-    @Inject
+    @Autowired
     PersonalServiceRepository personalServiceRepository;
-    @Inject
+    @Autowired
     DoctorScheduleRepository doctorScheduleRepository;
-    @Inject
+    @Autowired
     StatuteRepository statuteRepository;
-    @Inject
+    @Autowired
     ClinicRepository clinicRepository;
 
     @Override
     public GetClientByIdRsDto getById(int id) {
         GetClientByIdRsDto getClientByIdRsDto = new GetClientByIdRsDto();
-        getClientByIdRsDto.setСlient(clientRepository.getById(id));
+        getClientByIdRsDto.setСlient(clientRepository.getClientById(id));
         return getClientByIdRsDto;
     }
 
     @Override
     public List<Personal> getAllPersonal() {
-        List<Personal> list =  personalRepository.findAllOrderByExperience();
+        List<Personal> list =  personalRepository.findAll();
         return list;
     }
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Personal getPersonalById(int id) {
-        return personalRepository.getById(id);
+        return personalRepository.getPersonalById(id);
     }
 
     @Override

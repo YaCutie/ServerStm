@@ -5,141 +5,61 @@ import com.stm.autentification.AuthenticationService;
 import com.stm.dto.*;
 import com.stm.repository.UsersTokenRepository;
 import com.stm.service.UserService;
-import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.*;
-import io.micronaut.http.annotation.Post;
-import io.micronaut.security.annotation.Secured;
-import io.micronaut.security.rules.SecurityRule;
-import jakarta.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.sql.*;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
-import static io.micronaut.http.HttpHeaders.AUTHORIZATION;
-
-@Controller
-@Secured(SecurityRule.IS_ANONYMOUS)
+@RestController
 public class MyController {
-    @Inject
+    @Autowired
     UserService userService;
-    @Inject
+    @Autowired
     AuthenticationService authenticationService;
-    @Inject
+    @Autowired
     UsersTokenRepository usersTokenRepository;
 
-    @Get( "/user/list")
-    public List<Client> getUserList(@Header(AUTHORIZATION)String token){
-        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) && l > new Date().getTime()) {
-                return userService.getList();
-            }
-        }
-        return null;
+    @GetMapping( "/user/list")
+    public List<Client> getUserList(){
+        return userService.getList();
     }
 
-    @Post(value = "/user/find", consumes = MediaType.APPLICATION_JSON)
-    public GetClientByIdRsDto getById(@Header(AUTHORIZATION)String token, @Body GetClientByIdRqDto getUserByIdRqDto) throws SQLException {
-        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) && l > new Date().getTime()) {
-                return userService.getById(getUserByIdRqDto.getId());
-            }
-        }
-        return null;
-        //return userService.getById(getUserByIdRqDto.getId());
+    @PostMapping(path="/user/find", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GetClientByIdRsDto getById(@RequestBody GetClientByIdRqDto getUserByIdRqDto) throws SQLException {
+        return userService.getById(getUserByIdRqDto.getId());
     }
 
-    @Get(value = "/personal/findall", consumes = MediaType.APPLICATION_JSON)
-    public List<Personal>  getAllPersonal(@Header(AUTHORIZATION)String token) throws SQLException {
-        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) && l > new Date().getTime()) {
-                return userService.getAllPersonal();
-            }
-        }
-        return null;
+    @GetMapping( "/personal/findall")
+    public List<Personal>  getAllPersonal() throws SQLException {
+        return userService.getAllPersonal();
     }
-    @Post(value = "/personal/findallservices", consumes = MediaType.APPLICATION_JSON)
-    public List<PersonalService> getAllServiceByPersonal(@Header(AUTHORIZATION)String token,
-                                                         @Body GetAllServicesByPersonalIdRqDto getAllServicesByPersonalIdRqDto) throws SQLException {
-        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) && l > new Date().getTime()) {
-                return userService.getAllServiceByPersonal(getAllServicesByPersonalIdRqDto.getId());
-            }
-        }
-        return null;
+    @PostMapping(path= "/personal/findallservices", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PersonalService> getAllServiceByPersonal(@RequestBody GetAllServicesByPersonalIdRqDto getAllServicesByPersonalIdRqDto) throws SQLException {
+        return userService.getAllServiceByPersonal(getAllServicesByPersonalIdRqDto.getId());
     }
-    @Post(value = "/user/newappoitment", consumes = MediaType.APPLICATION_JSON)
-    public boolean NewAppointment(@Header(AUTHORIZATION)String token,
-                                           @Body NewAppointmentRqDto newAppointmentRqDto) throws SQLException, ParseException {
-        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) && l > new Date().getTime()) {
-                boolean accept = false;
-                accept = userService.NewAppoitment(newAppointmentRqDto);
-                return accept;
-            }
-        }
-        return false;
-        //return userService.getAllServiceByPersonal(getAllServicesByPersonalIdRqDto.getId());
+    @PostMapping(path="/user/newappoitment", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean NewAppointment(@RequestBody NewAppointmentRqDto newAppointmentRqDto) throws SQLException, ParseException {
+        boolean accept = false;
+        accept = userService.NewAppoitment(newAppointmentRqDto);
+        return accept;
     }
-    @Post(value = "/user/allappointment", consumes = MediaType.APPLICATION_JSON)
-    public List<Appointment> getAllallappointmentByUserId(@Header(AUTHORIZATION)String token,
-                                           @Body GetAllAppointmentByUserIdRqDto getAllAppointmentByUserIdRqDto) throws SQLException, ParseException {
-        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) && l > new Date().getTime()) {
-                return userService.GetAllAppointmentByUserId(getAllAppointmentByUserIdRqDto);
-            }
-        }
-        return null;
-        //return userService.getAllServiceByPersonal(getAllServicesByPersonalIdRqDto.getId());
+    @PostMapping(path= "/user/allappointment", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Appointment> getAllallappointmentByUserId(@RequestBody GetAllAppointmentByUserIdRqDto getAllAppointmentByUserIdRqDto) throws SQLException, ParseException {
+        return userService.GetAllAppointmentByUserId(getAllAppointmentByUserIdRqDto);
     }
-    @Post(value = "/personal/findallschedule", consumes = MediaType.APPLICATION_JSON)
-    public List<Doctorsschedule> getAllDoctorsscheduleByPersonal(@Header(AUTHORIZATION)String token,
-                                                                 @Body GetAllDoctorsScheduleByPersonalIdRqDto getAllDoctorsScheduleByPersonalIdRqDto) throws SQLException {
-        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) && l > new Date().getTime()) {
-                return userService.getAllDoctorsscheduleByPersonal(getAllDoctorsScheduleByPersonalIdRqDto.getId());
-            }
-        }
-        return null;
-        //return userService.getAllDoctorsscheduleByPersonal(getAllDoctorsScheduleByPersonalIdRqDto.getId());
+    @PostMapping(path="/personal/findallschedule", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Doctorsschedule> getAllDoctorsscheduleByPersonal(@RequestBody GetAllDoctorsScheduleByPersonalIdRqDto getAllDoctorsScheduleByPersonalIdRqDto) throws SQLException {
+        return userService.getAllDoctorsscheduleByPersonal(getAllDoctorsScheduleByPersonalIdRqDto.getId());
     }
-    @Post(value = "/personal/findpersonbyid", consumes = MediaType.APPLICATION_JSON)
-    public Personal getPersonalById(@Header(AUTHORIZATION)String token,
-                                    @Body GetAllDoctorsScheduleByPersonalIdRqDto getAllDoctorsScheduleByPersonalIdRqDto) throws SQLException {
-        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-            String userToken = ut.getUserToken();
-            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-            if (userToken.equals(token) && l > new Date().getTime()) {
-                return userService.getPersonalById(getAllDoctorsScheduleByPersonalIdRqDto.getId());
-            }
-        }
-        return null;
-        //return userService.getPersonalById(getAllDoctorsScheduleByPersonalIdRqDto.getId());
+    @PostMapping(path="/personal/findpersonbyid", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Personal getPersonalById(@RequestBody GetAllDoctorsScheduleByPersonalIdRqDto getAllDoctorsScheduleByPersonalIdRqDto) throws SQLException {
+        return userService.getPersonalById(getAllDoctorsScheduleByPersonalIdRqDto.getId());
     }
-//    @Post(value = "/user/sendemail", consumes = MediaType.APPLICATION_JSON)
-//    public Integer SendFile(@Header(AUTHORIZATION)String token,
-//                                                          @Body SendFileRqDto sendFileRqDto) throws SQLException, ParseException {
-//        for (UsersToken ut : usersTokenRepository.getUsersTokenList()) {
-//            String userToken = ut.getUserToken();
-//            Long l = Long.parseLong(authenticationService.DecodeTokenDate(token));
-//            if (userToken.equals(token) && l > new Date().getTime()) {
-//                return userService.SendFile(sendFileRqDto);
-//            }
-//        }
-//        return null;
-//    }
 }

@@ -1,21 +1,16 @@
 package com.stm;
 
-import io.micronaut.runtime.EmbeddedApplication;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import jakarta.inject.Inject;
 
-@MicronautTest
+@SpringBootTest
 class ServerstmTest {
 
-    @Inject
-    EmbeddedApplication<?> application;
-
     @Test
-    void testItWorks() {
-        Assertions.assertTrue(application.isRunning());
+    void contextLoads() {
     }
 
 }

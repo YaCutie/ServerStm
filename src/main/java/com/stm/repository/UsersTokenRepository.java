@@ -1,12 +1,12 @@
 package com.stm.repository;
 
 import com.stm.Entity.UsersToken;
-import jakarta.inject.Singleton;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Singleton
+@Repository
 public class UsersTokenRepository {
     private List<UsersToken> usersTokenList;
 

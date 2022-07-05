@@ -6,30 +6,28 @@ import com.stm.dto.LoginRsDto;
 import com.stm.dto.RegistrationRqDto;
 import com.stm.dto.RegistrationRsDto;
 import com.stm.service.UserService;
-import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Post;
-import io.micronaut.security.annotation.Secured;
-import io.micronaut.security.rules.SecurityRule;
-import jakarta.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Secured(SecurityRule.IS_ANONYMOUS)
-@Controller
+@RestController
 public class RegisterController {
 
-    @Inject
+    @Autowired
     UserService userService;
-    @Inject
+    @Autowired
     private AuthenticationServicempl authenticationService;
 
-    @Post(value = "/user/login", consumes = MediaType.APPLICATION_JSON)
-    public LoginRsDto Verification(@Body LoginRqDto loginRqDto){
+    @PostMapping(value = "/user/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    public LoginRsDto Verification(@RequestBody LoginRqDto loginRqDto){
         return authenticationService.Verification(loginRqDto);
     }
-    @Post(value = "/user/registration", consumes = MediaType.APPLICATION_JSON)
-    public RegistrationRsDto Registration(@Body RegistrationRqDto registrationRqDto){
+    @PostMapping(value = "/user/registration", produces = MediaType.APPLICATION_JSON_VALUE)
+    public RegistrationRsDto Registration(@RequestBody RegistrationRqDto registrationRqDto){
         return authenticationService.Registration(registrationRqDto);
     }
 }
