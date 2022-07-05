@@ -1,9 +1,11 @@
 package com.stm.dto;
 
+import lombok.Builder;
+
+@Builder
 public class LoginRsDto {
     private boolean verification;
     private String token;
-
     private int id;
 
     public boolean isVerification() {

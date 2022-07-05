@@ -1,6 +1,10 @@
 package com.stm.dto;
 
+import lombok.Builder;
+
+@Builder
 public class RegistrationRsDto {
+
     private boolean verification;
     private String token;
 

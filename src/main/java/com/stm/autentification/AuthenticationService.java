@@ -7,7 +7,6 @@ import com.stm.dto.RegistrationRqDto;
 import com.stm.dto.RegistrationRsDto;
 
 public interface AuthenticationService {
-    Statute GetStatuteById(Integer id);
 
     LoginRsDto Verification(LoginRqDto loginRqDto);
 

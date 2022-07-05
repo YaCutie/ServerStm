@@ -5,6 +5,8 @@ import com.stm.Entity.Statute;
 import com.stm.autentification.AuthenticationServicempl;
 import com.stm.dto.LoginRqDto;
 import com.stm.dto.LoginRsDto;
+import com.stm.dto.RegistrationRqDto;
+import com.stm.dto.RegistrationRsDto;
 import com.stm.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,11 +19,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthenticationServiceTest {
@@ -34,22 +37,22 @@ public class AuthenticationServiceTest {
     PersonalServiceRepository personalServiceRepository;
     @Mock
     UsersTokenRepository usersTokenRepository;
-    @Mock
-    StatuteRepository statuteRepository;
+//    @Mock
+//    StatuteRepository statuteRepository;
 
     @InjectMocks
     AuthenticationServicempl authenticationServicempl;
 
-    @Test
-    public void shouldGetStatuteById(){
-        Statute statute = new Statute(0,"Новая");
-        when(statuteRepository.getStatuteById(anyInt())).thenReturn(statute);
-
-        Statute newStatute = authenticationServicempl.GetStatuteById(0);
-
-        assertEquals("Новая", newStatute.getStatusname());
-        verify(statuteRepository).getStatuteById(eq(0));
-    }
+//    @Test
+//    public void shouldGetStatuteById(){
+//        Statute statute = new Statute(0,"Новая");
+//        when(statuteRepository.getStatuteById(anyInt())).thenReturn(statute);
+//
+//        Statute newStatute = authenticationServicempl.GetStatuteById(0);
+//
+//        assertEquals("Новая", newStatute.getStatusname());
+//        verify(statuteRepository).getStatuteById(eq(0));
+//    }
 
     @Test
     public void shouldVerificationTrue(){
@@ -90,4 +93,24 @@ public class AuthenticationServiceTest {
         verify(clientRepository).getByLogin(eq("zab1"));
     }
 
+    @Test
+    public void shouldRegistrationTrue(){
+        Client client = new Client("asd","asd","asd", LocalDate.now(),"12345","asd@mail","zab","123");
+        client.setId(1);
+        List<Client> list = new ArrayList<>();
+        list.add(client);
+        Client client2 = new Client("asd","asd","asd", LocalDate.now(),"12345","asd1@mail","zab1","123");
+        client2.setId(2);
+        RegistrationRqDto registrationRqDto = RegistrationRqDto.builder().surname("asd").name("asd").middleName("asd").dateOfBirth(LocalDate.now())
+                .phone("12345").email("asd1@mail").login("zab1").password("123").build();
+        when(clientRepository.findAll()).thenReturn(list);
+        when(clientRepository.save(any(Client.class))).thenReturn(client2);
+        when(clientRepository.getClientByLogin(anyString())).thenReturn(client2);
+
+        RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
+
+        assertEquals(true, registrationRsDto.isVerification());
+        assertEquals(2, registrationRsDto.getId());
+        verify(clientRepository,times(2)).getClientByLogin(eq("zab1"));
+    }
 }

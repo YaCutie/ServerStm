@@ -1,7 +1,10 @@
 package com.stm.dto;
 
+import lombok.Builder;
+
 import java.time.LocalDate;
 
+@Builder
 public class RegistrationRqDto {
 
     private String surname;
