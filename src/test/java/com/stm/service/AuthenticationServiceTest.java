@@ -10,6 +10,7 @@ import com.stm.dto.RegistrationRsDto;
 import com.stm.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -51,7 +52,7 @@ public class AuthenticationServiceTest {
 
         LoginRsDto loginRsDto = authenticationServicempl.Verification(loginRqDto);
 
-        assertEquals(true, loginRsDto.isVerification());
+        assertTrue(loginRsDto.isVerification());
         verify(clientRepository).getByLogin(eq("zab"));
     }
 
@@ -64,7 +65,7 @@ public class AuthenticationServiceTest {
 
         LoginRsDto loginRsDto = authenticationServicempl.Verification(loginRqDto);
 
-        assertEquals(false, loginRsDto.isVerification());
+        assertFalse(loginRsDto.isVerification());
         verify(clientRepository).getByLogin(eq("zab"));
     }
 
@@ -77,7 +78,7 @@ public class AuthenticationServiceTest {
 
         LoginRsDto loginRsDto = authenticationServicempl.Verification(loginRqDto);
 
-        assertEquals(false, loginRsDto.isVerification());
+        assertFalse(loginRsDto.isVerification());
         verify(clientRepository).getByLogin(eq("zab1"));
     }
 
@@ -97,7 +98,7 @@ public class AuthenticationServiceTest {
 
         RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
 
-        assertEquals(true, registrationRsDto.isVerification());
+        assertTrue(registrationRsDto.isVerification());
         assertEquals(2, registrationRsDto.getId());
         verify(clientRepository,times(2)).getClientByLogin(eq("zab1"));
     }
@@ -115,7 +116,7 @@ public class AuthenticationServiceTest {
 
         RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
 
-        assertEquals(true, registrationRsDto.isVerification());
+        assertTrue(registrationRsDto.isVerification());
         assertEquals(2, registrationRsDto.getId());
         verify(clientRepository,times(2)).getClientByLogin(eq("zab1"));
     }
@@ -132,6 +133,23 @@ public class AuthenticationServiceTest {
 
         RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
 
-        assertEquals(false, registrationRsDto.isVerification());
+        assertFalse(registrationRsDto.isVerification());
     }
+
+//    @Test
+//    public void shouldRegistrationTrue(){
+//        Client client = new Client("asd","asd","asd", LocalDate.now(),"12345","asd@mail","zab","123");
+//        client.setId(1);
+//        List<Client> list = new ArrayList<>();
+//        list.add(client);
+//        RegistrationRqDto registrationRqDto = RegistrationRqDto.builder().surname("asd").name("asd").middleName("asd").dateOfBirth(LocalDate.now())
+//                .phone("12345").email("asd1@mail").login("zab1").password("123").build();
+//        when(clientRepository.findAll()).thenReturn(list);
+//        when(clientRepository.save(any(Client.class))).then(AdditionalAnswers.returnsFirstArg());
+//
+//        RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
+//
+//        assertTrue(registrationRsDto.isVerification());
+//        assertEquals(2, registrationRsDto.getId());
+//    }
 }

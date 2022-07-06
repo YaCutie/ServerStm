@@ -86,6 +86,7 @@ public class AuthenticationServicempl implements AuthenticationService {
         boolean ver = true;
         Map<String, Object> tokenData = new HashMap<>();
         String token = "";
+//        Client newClient;
 
         String rqLogin = registrationRqDto.getLogin().toLowerCase(Locale.ROOT);
         String rqEmail = registrationRqDto.getEmail().toLowerCase(Locale.ROOT);
@@ -104,11 +105,15 @@ public class AuthenticationServicempl implements AuthenticationService {
                 }
             }
 
+//            newClient = clientRepository.save(new Client(registrationRqDto.getSurname(), registrationRqDto.getName(),
+//                    registrationRqDto.getMiddleName(), registrationRqDto.getDateOfBirth(), registrationRqDto.getPhone(), registrationRqDto.getEmail(),
+//                    registrationRqDto.getLogin().toLowerCase(Locale.ROOT), registrationRqDto.getPassword().toLowerCase(Locale.ROOT)));
             clientRepository.save(new Client(registrationRqDto.getSurname(), registrationRqDto.getName(),
                     registrationRqDto.getMiddleName(), registrationRqDto.getDateOfBirth(), registrationRqDto.getPhone(), registrationRqDto.getEmail(),
                     registrationRqDto.getLogin().toLowerCase(Locale.ROOT), registrationRqDto.getPassword().toLowerCase(Locale.ROOT)));
 
             tokenData.put("clientType", "user");
+//            tokenData.put("userID", newClient.getId());
             tokenData.put("userID", clientRepository.getClientByLogin(rqLogin).getId());
             tokenData.put("username", registrationRqDto.getSurname() + " " + registrationRqDto.getName() + " " + registrationRqDto.getMiddleName());
             tokenData.put("token_create_date", new Date().getTime());

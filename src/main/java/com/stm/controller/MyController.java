@@ -30,12 +30,10 @@ public class MyController {
     public List<Client> getUserList(){
         return userService.getList();
     }
-
     @PostMapping(path="/user/find", produces = MediaType.APPLICATION_JSON_VALUE)
     public GetClientByIdRsDto getById(@RequestBody GetClientByIdRqDto getUserByIdRqDto) throws SQLException {
         return userService.getById(getUserByIdRqDto.getId());
     }
-
     @GetMapping( "/personal/findall")
     public List<Personal>  getAllPersonal() throws SQLException {
         return userService.getAllPersonal();
