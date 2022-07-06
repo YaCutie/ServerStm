@@ -34,10 +34,6 @@ public class AuthenticationServicempl implements AuthenticationService {
     public void main() {
     }
 
-//    @Override
-//    public Statute GetStatuteById(Integer id){
-//        return statuteRepository.getStatuteById(id);
-//    }
 
     @Override
     public LoginRsDto Verification(LoginRqDto loginRqDto) {
@@ -94,41 +90,43 @@ public class AuthenticationServicempl implements AuthenticationService {
         String rqLogin = registrationRqDto.getLogin().toLowerCase(Locale.ROOT);
         String rqEmail = registrationRqDto.getEmail().toLowerCase(Locale.ROOT);
 
-        for (Client cl : clientRepository.findAll()) {
-            String userLogin = cl.getLogin().toLowerCase(Locale.ROOT);
-            String userEmail = cl.getEmail().toLowerCase(Locale.ROOT);
+        try {
 
-            if (rqLogin.equals(userLogin) || rqEmail.equals(userEmail)) {
-                RegistrationRsDto registrationRsDto = RegistrationRsDto.builder().build();
-                ver = false;
-                registrationRsDto.setVerification(ver);
-                return registrationRsDto;
+            for (Client cl : clientRepository.findAll()) {
+                String userLogin = cl.getLogin().toLowerCase(Locale.ROOT);
+                String userEmail = cl.getEmail().toLowerCase(Locale.ROOT);
+
+                if (rqLogin.equals(userLogin) || rqEmail.equals(userEmail)) {
+                    RegistrationRsDto registrationRsDto = RegistrationRsDto.builder().build();
+                    ver = false;
+                    registrationRsDto.setVerification(ver);
+                    return registrationRsDto;
+                }
             }
+
+            clientRepository.save(new Client(registrationRqDto.getSurname(), registrationRqDto.getName(),
+                    registrationRqDto.getMiddleName(), registrationRqDto.getDateOfBirth(), registrationRqDto.getPhone(), registrationRqDto.getEmail(),
+                    registrationRqDto.getLogin().toLowerCase(Locale.ROOT), registrationRqDto.getPassword().toLowerCase(Locale.ROOT)));
+
+            tokenData.put("clientType", "user");
+            tokenData.put("userID", clientRepository.getClientByLogin(rqLogin).getId());
+            tokenData.put("username", registrationRqDto.getSurname() + " " + registrationRqDto.getName() + " " + registrationRqDto.getMiddleName());
+            tokenData.put("token_create_date", new Date().getTime());
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.YEAR, 100);
+            tokenData.put("token_expiration_date", calendar.getTime());
+            JwtBuilder jwtBuilder = Jwts.builder();
+            jwtBuilder.setExpiration(calendar.getTime());
+            jwtBuilder.setClaims(tokenData);
+            String key = "abc123";
+            token = jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact();
+            usersTokenRepository.getUsersTokenList().add(new UsersToken(rqLogin, "Bearer " + token));
+        } catch (Error e) {
+            RegistrationRsDto registrationRsDto = RegistrationRsDto.builder().build();
+            ver = false;
+            registrationRsDto.setVerification(ver);
+            return registrationRsDto;
         }
-
-        clientRepository.save(new Client(registrationRqDto.getSurname(), registrationRqDto.getName(),
-                registrationRqDto.getMiddleName(), registrationRqDto.getDateOfBirth(),registrationRqDto.getPhone(), registrationRqDto.getEmail(),
-                registrationRqDto.getLogin().toLowerCase(Locale.ROOT), registrationRqDto.getPassword().toLowerCase(Locale.ROOT)));
-
-        tokenData.put("clientType", "user");
-        tokenData.put("userID", clientRepository.getClientByLogin(rqLogin).getId());
-        tokenData.put("username", registrationRqDto.getSurname() + " " +registrationRqDto.getName() + " " + registrationRqDto.getMiddleName());
-        tokenData.put("token_create_date", new Date().getTime());
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, 100);
-        tokenData.put("token_expiration_date", calendar.getTime());
-        JwtBuilder jwtBuilder = Jwts.builder();
-        jwtBuilder.setExpiration(calendar.getTime());
-        jwtBuilder.setClaims(tokenData);
-        String key = "abc123";
-        token = jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact();
-        usersTokenRepository.getUsersTokenList().add(new UsersToken(rqLogin,"Bearer "+token));
-
-//        RegistrationRsDto registrationRsDto = RegistrationRsDto.builder().build();
-//        registrationRsDto.setVerification(ver);
-//        registrationRsDto.setToken(token);
-//        registrationRsDto.setId(clientRepository.getClientByLogin(rqLogin).getId());
-//        return registrationRsDto;
 
         return RegistrationRsDto.builder().verification(ver).token(token).id(clientRepository.getClientByLogin(rqLogin).getId()).build();
     }

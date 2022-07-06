@@ -37,22 +37,10 @@ public class AuthenticationServiceTest {
     PersonalServiceRepository personalServiceRepository;
     @Mock
     UsersTokenRepository usersTokenRepository;
-//    @Mock
-//    StatuteRepository statuteRepository;
 
     @InjectMocks
     AuthenticationServicempl authenticationServicempl;
 
-//    @Test
-//    public void shouldGetStatuteById(){
-//        Statute statute = new Statute(0,"Новая");
-//        when(statuteRepository.getStatuteById(anyInt())).thenReturn(statute);
-//
-//        Statute newStatute = authenticationServicempl.GetStatuteById(0);
-//
-//        assertEquals("Новая", newStatute.getStatusname());
-//        verify(statuteRepository).getStatuteById(eq(0));
-//    }
 
     @Test
     public void shouldVerificationTrue(){
@@ -112,5 +100,38 @@ public class AuthenticationServiceTest {
         assertEquals(true, registrationRsDto.isVerification());
         assertEquals(2, registrationRsDto.getId());
         verify(clientRepository,times(2)).getClientByLogin(eq("zab1"));
+    }
+
+    @Test
+    public void shouldRegistrationNoClients(){
+        List<Client> list = new ArrayList<>();
+        Client client2 = new Client("asd","asd","asd", LocalDate.now(),"12345","asd1@mail","zab1","123");
+        client2.setId(2);
+        RegistrationRqDto registrationRqDto = RegistrationRqDto.builder().surname("asd").name("asd").middleName("asd").dateOfBirth(LocalDate.now())
+                .phone("12345").email("asd1@mail").login("zab1").password("123").build();
+        when(clientRepository.findAll()).thenReturn(list);
+        when(clientRepository.save(any(Client.class))).thenReturn(client2);
+        when(clientRepository.getClientByLogin(anyString())).thenReturn(client2);
+
+        RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
+
+        assertEquals(true, registrationRsDto.isVerification());
+        assertEquals(2, registrationRsDto.getId());
+        verify(clientRepository,times(2)).getClientByLogin(eq("zab1"));
+    }
+
+    @Test
+    public void shouldRegistrationBadEmailOrLogin(){
+        Client client = new Client("asd","asd","asd", LocalDate.now(),"12345","asd@mail","zab","123");
+        client.setId(1);
+        List<Client> list = new ArrayList<>();
+        list.add(client);
+        RegistrationRqDto registrationRqDto = RegistrationRqDto.builder().surname("asd").name("asd").middleName("asd").dateOfBirth(LocalDate.now())
+                .phone("12345").email("asd@mail").login("zab").password("123").build();
+        when(clientRepository.findAll()).thenReturn(list);
+
+        RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
+
+        assertEquals(false, registrationRsDto.isVerification());
     }
 }
