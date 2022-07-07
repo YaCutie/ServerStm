@@ -1,11 +1,16 @@
 package com.stm.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "appointment")
 public class Appointment {

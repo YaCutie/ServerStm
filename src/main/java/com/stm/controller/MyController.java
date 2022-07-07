@@ -26,10 +26,6 @@ public class MyController {
     @Autowired
     UsersTokenRepository usersTokenRepository;
 
-    @GetMapping( "/user/list")
-    public List<Client> getUserList(){
-        return userService.getList();
-    }
     @PostMapping(path="/user/find", produces = MediaType.APPLICATION_JSON_VALUE)
     public GetClientByIdRsDto getById(@RequestBody GetClientByIdRqDto getUserByIdRqDto) throws SQLException {
         return userService.getById(getUserByIdRqDto.getId());

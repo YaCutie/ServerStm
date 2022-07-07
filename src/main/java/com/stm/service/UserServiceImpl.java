@@ -70,9 +70,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean NewAppoitment(NewAppointmentRqDto newAppointmentRqDto) throws ParseException {
-        Appointment newAppointment = new Appointment(newAppointmentRqDto.getReceptionTime(), clientRepository.getById(newAppointmentRqDto.getClientid()),
-                clinicRepository.getById(newAppointmentRqDto.getClinicid()), personalRepository.getById(newAppointmentRqDto.getPersonalid()),
-                newAppointmentRqDto.getCabinetNumber(), statuteRepository.getById(newAppointmentRqDto.getStatus()));
+        Appointment newAppointment = new Appointment(newAppointmentRqDto.getReceptionTime(), clientRepository.getClientById(newAppointmentRqDto.getClientid()),
+                clinicRepository.getClinicById(newAppointmentRqDto.getClinicid()), personalRepository.getPersonalById(newAppointmentRqDto.getPersonalid()),
+                newAppointmentRqDto.getCabinetNumber(), statuteRepository.getStatuteById(newAppointmentRqDto.getStatus()));
         appointmentRepository.save(newAppointment);
         return true;
     }
@@ -80,10 +80,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Appointment> GetAllAppointmentByUserId(GetAllAppointmentByUserIdRqDto getAllAppointmentByUserIdRqDto) {
         return appointmentRepository.findByClientidId(getAllAppointmentByUserIdRqDto.getId());
-    }
-
-    @Override
-    public List<Client> getList() {
-        return clientRepository.findAll();
     }
 }

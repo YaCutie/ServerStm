@@ -1,8 +1,13 @@
 package com.stm.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "client")
 public class Client {

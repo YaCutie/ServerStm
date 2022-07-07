@@ -11,5 +11,5 @@ import java.util.List;
 public interface ClinicRepository extends JpaRepository<Clinic, Integer> {
     @Override
     List<Clinic> findAll();
-    Clinic getById(int id);
+    Clinic getClinicById(int id);
 }

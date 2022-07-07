@@ -10,9 +10,6 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface UserService {
-//    Integer SendFile(SendFileRqDto sendFileRqDto);
-    List<Client> getList();
-
     GetClientByIdRsDto getById(int id);
 
     List<Personal> getAllPersonal();

@@ -1,7 +1,13 @@
 package com.stm.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "personal_services")
 public class PersonalService {
@@ -17,6 +23,10 @@ public class PersonalService {
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "service_id")
     private Service service;
+
+    public PersonalService() {
+
+    }
 
     public Integer getId() {
         return id;

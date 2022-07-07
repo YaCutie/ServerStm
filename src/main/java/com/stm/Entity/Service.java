@@ -1,8 +1,14 @@
 package com.stm.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "services")
 public class Service {
@@ -25,6 +31,10 @@ public class Service {
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "clinicid")
     private Clinic clinicid;
+
+    public Service() {
+
+    }
 
     public Integer getId() {
         return id;

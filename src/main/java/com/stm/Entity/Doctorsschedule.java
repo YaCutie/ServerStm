@@ -1,8 +1,13 @@
 package com.stm.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.time.LocalTime;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "doctorsschedule")
 public class Doctorsschedule {
@@ -34,6 +39,10 @@ public class Doctorsschedule {
 
     @Column(name = "day")
     private Integer day;
+
+    public Doctorsschedule() {
+
+    }
 
     public Integer getId() {
         return id;

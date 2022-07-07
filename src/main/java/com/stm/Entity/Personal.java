@@ -1,9 +1,15 @@
 package com.stm.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "personal")
 public class Personal {
@@ -72,6 +78,10 @@ public class Personal {
 
     @Column(name = "rating")
     private Integer rating;
+
+    public Personal() {
+
+    }
 
     public Integer getId() {
         return id;
