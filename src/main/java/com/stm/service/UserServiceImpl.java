@@ -49,8 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Personal> getAllPersonal() {
-        List<Personal> list =  personalRepository.findAll();
-        return list;
+        return personalRepository.findAll();
     }
 
     @Override
@@ -73,8 +72,9 @@ public class UserServiceImpl implements UserService {
         Appointment newAppointment = new Appointment(newAppointmentRqDto.getReceptionTime(), clientRepository.getClientById(newAppointmentRqDto.getClientid()),
                 clinicRepository.getClinicById(newAppointmentRqDto.getClinicid()), personalRepository.getPersonalById(newAppointmentRqDto.getPersonalid()),
                 newAppointmentRqDto.getCabinetNumber(), statuteRepository.getStatuteById(newAppointmentRqDto.getStatus()));
-        appointmentRepository.save(newAppointment);
-        return true;
+        Appointment appointment = appointmentRepository.save(newAppointment);
+        if (appointment != null) return true;
+        else return false;
     }
 
     @Override

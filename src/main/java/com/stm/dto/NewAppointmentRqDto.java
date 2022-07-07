@@ -4,9 +4,13 @@ import com.stm.Entity.Client;
 import com.stm.Entity.Clinic;
 import com.stm.Entity.Personal;
 import com.stm.Entity.Statute;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.time.Instant;
 
+@Builder
+@AllArgsConstructor
 public class NewAppointmentRqDto {
     private String receptionTime;
     private Integer clientid;

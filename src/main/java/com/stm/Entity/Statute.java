@@ -1,16 +1,15 @@
 package com.stm.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import javax.persistence.*;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "statutes")
 public class Statute {
-    public Statute(Integer id, String statusname) {
-        this.id = id;
-        this.statusname = statusname;
-    }
 
     public Statute() {}
 

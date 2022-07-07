@@ -2,25 +2,23 @@ package com.stm.service;
 
 import com.stm.Entity.*;
 import com.stm.autentification.AuthenticationServicempl;
-import com.stm.dto.GetAllAppointmentByUserIdRqDto;
-import com.stm.dto.GetClientByIdRsDto;
-import com.stm.dto.LoginRqDto;
-import com.stm.dto.LoginRsDto;
+import com.stm.dto.*;
 import com.stm.repository.*;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -172,29 +170,42 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldNewAppoitmentTrue(){
-//        Appointment appointment = Appointment.builder().clientid(Client.builder().id(1).build()).cabinetNumber(27).build();
-//        List<Appointment> list = new ArrayList<>();
-//        list.add(appointment);
-//        GetAllAppointmentByUserIdRqDto getAllAppointmentByUserIdRqDto = GetAllAppointmentByUserIdRqDto.builder().id(1).build();
-//        when(appointmentRepository.findByClientidId(anyInt())).thenReturn(list);
-//
-//        List<Appointment> all = userService.GetAllAppointmentByUserId(getAllAppointmentByUserIdRqDto);
-//
-//        assertEquals(appointment, all.get(0));
-//        verify(appointmentRepository).findByClientidId(eq(1));
+    public void shouldNewAppoitmentTrue() throws ParseException {
+        NewAppointmentRqDto newAppointmentRqDto = NewAppointmentRqDto.builder().receptionTime("2022-07-07 8:00").clientid(1).personalid(1)
+                .clinicid(1).cabinetNumber(27).status(1).build();
+        Client client = Client.builder().id(1).name("asd").build();
+        Clinic clinic = Clinic.builder().id(1).clinicName("asd").build();
+        Personal personal = Personal.builder().id(1).name("asd").build();
+        Statute statute = Statute.builder().id(1).statusname("new").build();
+        when(clientRepository.getClientById(anyInt())).thenReturn(client);
+        when(clinicRepository.getClinicById(anyInt())).thenReturn(clinic);
+        when(personalRepository.getPersonalById(anyInt())).thenReturn(personal);
+        when(statuteRepository.getStatuteById(anyInt())).thenReturn(statute);
+        when(appointmentRepository.save(any(Appointment.class))).then(AdditionalAnswers.returnsFirstArg());
+
+        boolean ver = userService.NewAppoitment(newAppointmentRqDto);
+
+        assertTrue(ver);
+        verify(clientRepository).getClientById(eq(1));
+        verify(clinicRepository).getClinicById(eq(1));
+        verify(personalRepository).getPersonalById(eq(1));
+        verify(statuteRepository).getStatuteById(eq(1));
+        verify(appointmentRepository).save(argThat(saved -> saved.getStatus().getId().equals(1)));
     }
 
     @Test
-    public void shouldNewAppoitmentFalse(){
-//        int id = 1;
-//        List<Appointment> list = new ArrayList<>();
-//        GetAllAppointmentByUserIdRqDto getAllAppointmentByUserIdRqDto = GetAllAppointmentByUserIdRqDto.builder().id(1).build();
-//        when(appointmentRepository.findByClientidId(anyInt())).thenReturn(list);
-//
-//        List<Appointment> all = userService.GetAllAppointmentByUserId(getAllAppointmentByUserIdRqDto);
-//
-//        assertEquals(0, all.size());
-//        verify(appointmentRepository).findByClientidId(eq(1));
+    public void shouldNewAppoitmentFalse() throws ParseException {
+        NewAppointmentRqDto newAppointmentRqDto = NewAppointmentRqDto.builder().receptionTime("2022-07-07 8:00").clientid(1).personalid(1)
+                .clinicid(1).cabinetNumber(27).status(1).build();
+        when(clientRepository.getClientById(anyInt())).thenReturn(null);
+        when(clinicRepository.getClinicById(anyInt())).thenReturn(null);
+        when(personalRepository.getPersonalById(anyInt())).thenReturn(null);
+        when(statuteRepository.getStatuteById(anyInt())).thenReturn(null);
+        when(appointmentRepository.save(any(Appointment.class))).thenReturn(null);
+
+        boolean ver = userService.NewAppoitment(newAppointmentRqDto);
+
+        assertFalse(ver);
+        verify(appointmentRepository).save(argThat(saved -> saved.getStatus() == null));
     }
 }

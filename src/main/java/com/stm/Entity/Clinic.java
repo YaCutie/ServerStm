@@ -1,7 +1,12 @@
 package com.stm.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import javax.persistence.*;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "clinic")
 public class Clinic {
