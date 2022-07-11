@@ -1,0 +1,362 @@
+{
+	"info": {
+		"_postman_id": "39fef7f7-cb15-4cef-98a9-5da040909378",
+		"name": "Spring Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19829076"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"surname\": \"Кислицын\",\r\n    \"name\": \"Иван\",\r\n    \"middleName\": \"\",\r\n    \"phone\": \"123313\",\r\n    \"dateOfBirth\": \"2002-01-01\",\r\n    \"email\": \"kits@mail.ru\",\r\n    \"login\": \"kiti\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"kit\",\r\n    \"password\": \"123\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetClientById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMDk2NTU1NjA0OCwidXNlcklEIjo1LCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0gIiwidG9rZW5fY3JlYXRlX2RhdGUiOjE2NTUyOTE5NTYwNDh9.PlT_wnZl2p-8t7cU9vh_HsIcB-r7-qqkOIYL5-46wEIh1DRqjrGKondE0a3SSOhkvLB6bJwGodhQvIKSABdh6Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPersonalById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMDk2NTU1NjA0OCwidXNlcklEIjo1LCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0gIiwidG9rZW5fY3JlYXRlX2RhdGUiOjE2NTUyOTE5NTYwNDh9.PlT_wnZl2p-8t7cU9vh_HsIcB-r7-qqkOIYL5-46wEIh1DRqjrGKondE0a3SSOhkvLB6bJwGodhQvIKSABdh6Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/personal/findpersonbyid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"personal",
+						"findpersonbyid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllSchedule",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMDk2NTU1NjA0OCwidXNlcklEIjo1LCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0gIiwidG9rZW5fY3JlYXRlX2RhdGUiOjE2NTUyOTE5NTYwNDh9.PlT_wnZl2p-8t7cU9vh_HsIcB-r7-qqkOIYL5-46wEIh1DRqjrGKondE0a3SSOhkvLB6bJwGodhQvIKSABdh6Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/personal/findallschedule",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"personal",
+						"findallschedule"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AllAppointment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJjbGllbnRUeXBlIjoidXNlciIsInRva2VuX2V4cGlyYXRpb25fZGF0ZSI6NDgxMDk2NTU1NjA0OCwidXNlcklEIjo1LCJ1c2VybmFtZSI6ItCa0LjRgdC70LjRhtGL0L0g0JjQstCw0L0gIiwidG9rZW5fY3JlYXRlX2RhdGUiOjE2NTUyOTE5NTYwNDh9.PlT_wnZl2p-8t7cU9vh_HsIcB-r7-qqkOIYL5-46wEIh1DRqjrGKondE0a3SSOhkvLB6bJwGodhQvIKSABdh6Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/allappointment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"allappointment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NewAppointment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"receptionTime\" : \"2022-08-01 8:00\",\r\n    \"clientid\" : \"21\",\r\n    \"clinicid\" : \"1\",\r\n    \"personalid\" : \"2\",\r\n    \"cabinetNumber\" : \"1\",\r\n    \"status\" : \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/newappoitment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"newappoitment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllServiceByPersonal",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/personal/findallservices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"personal",
+						"findallservices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllPersonal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/personal/findall",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"personal",
+						"findall"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://1d649aad-2a15-459e-a433-77af16aa267c.mock.pstmn.io"
+		}
+	]
+}

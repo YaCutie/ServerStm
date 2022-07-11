@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -201,7 +202,7 @@ public class UserServiceTest {
         when(clinicRepository.getClinicById(anyInt())).thenReturn(null);
         when(personalRepository.getPersonalById(anyInt())).thenReturn(null);
         when(statuteRepository.getStatuteById(anyInt())).thenReturn(null);
-        when(appointmentRepository.save(any(Appointment.class))).thenReturn(null);
+        when(appointmentRepository.save(any(Appointment.class))).thenThrow(DataIntegrityViolationException.class);
 
         boolean ver = userService.NewAppoitment(newAppointmentRqDto);
 

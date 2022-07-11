@@ -72,9 +72,12 @@ public class UserServiceImpl implements UserService {
         Appointment newAppointment = new Appointment(newAppointmentRqDto.getReceptionTime(), clientRepository.getClientById(newAppointmentRqDto.getClientid()),
                 clinicRepository.getClinicById(newAppointmentRqDto.getClinicid()), personalRepository.getPersonalById(newAppointmentRqDto.getPersonalid()),
                 newAppointmentRqDto.getCabinetNumber(), statuteRepository.getStatuteById(newAppointmentRqDto.getStatus()));
-        Appointment appointment = appointmentRepository.save(newAppointment);
-        if (appointment != null) return true;
-        else return false;
+        try {
+            appointmentRepository.save(newAppointment);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.stm.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "clinic")
+@NoArgsConstructor
 public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
