@@ -26,7 +26,7 @@ public class Material {
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "deliveriesid")
-    private Delivery deliveriesid;
+    private Delivery deliveriesId;
 
     public Integer getId() {
         return id;
@@ -68,12 +68,12 @@ public class Material {
         this.quantity = quantity;
     }
 
-    public Delivery getDeliveriesid() {
-        return deliveriesid;
+    public Delivery getDeliveriesId() {
+        return deliveriesId;
     }
 
-    public void setDeliveriesid(Delivery deliveriesid) {
-        this.deliveriesid = deliveriesid;
+    public void setDeliveriesId(Delivery deliveriesid) {
+        this.deliveriesId = deliveriesid;
     }
 
 }

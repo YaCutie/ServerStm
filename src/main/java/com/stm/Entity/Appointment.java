@@ -18,9 +18,9 @@ public class Appointment {
     public Appointment(String receptionTime, Client clientid, Clinic clinicid, Personal personalid, Integer cabinetNumber, Statute status) throws ParseException {
         Date date = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(receptionTime);
         this.receptionTime = date.toInstant();
-        this.clientid = clientid;
-        this.clinicid = clinicid;
-        this.personalid = personalid;
+        this.clientId = clientid;
+        this.clinicId = clinicid;
+        this.personalId = personalid;
         this.cabinetNumber = cabinetNumber;
         this.status = status;
     }
@@ -37,15 +37,15 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "clientid")
-    private Client clientid;
+    private Client clientId;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "clinicid")
-    private Clinic clinicid;
+    private Clinic clinicId;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "personalid", nullable = false)
-    private Personal personalid;
+    private Personal personalId;
 
     @Column(name = "cabinet_number", nullable = false)
     private Integer cabinetNumber;
@@ -70,28 +70,28 @@ public class Appointment {
         this.receptionTime = receptionTime;
     }
 
-    public Client getClientid() {
-        return clientid;
+    public Client getClientId() {
+        return clientId;
     }
 
-    public void setClientid(Client clientid) {
-        this.clientid = clientid;
+    public void setClientId(Client clientid) {
+        this.clientId = clientid;
     }
 
-    public Clinic getClinicid() {
-        return clinicid;
+    public Clinic getClinicId() {
+        return clinicId;
     }
 
-    public void setClinicid(Clinic clinicid) {
-        this.clinicid = clinicid;
+    public void setClinicId(Clinic clinicid) {
+        this.clinicId = clinicid;
     }
 
-    public Personal getPersonalid() {
-        return personalid;
+    public Personal getPersonalId() {
+        return personalId;
     }
 
-    public void setPersonalid(Personal personalid) {
-        this.personalid = personalid;
+    public void setPersonalId(Personal personalid) {
+        this.personalId = personalid;
     }
 
     public Integer getCabinetNumber() {

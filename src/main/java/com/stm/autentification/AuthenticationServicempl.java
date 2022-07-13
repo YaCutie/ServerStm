@@ -2,6 +2,7 @@ package com.stm.autentification;
 
 import com.stm.Entity.Client;
 import com.stm.Entity.Statute;
+import com.stm.Entity.TokenData;
 import com.stm.Entity.UsersToken;
 import com.stm.dto.LoginRqDto;
 import com.stm.dto.LoginRsDto;
@@ -30,17 +31,12 @@ public class AuthenticationServicempl implements AuthenticationService {
     @Autowired
     StatuteRepository statuteRepository;
 
-    @Autowired
-    public void main() {
-    }
-
-
     @Override
-    public LoginRsDto Verification(LoginRqDto loginRqDto) {
+    public LoginRsDto verification(LoginRqDto loginRqDto) {
 
         Map<String, Object> tokenData = new HashMap<>();
 
-        boolean ver = false;
+        boolean verification = false;
         String token = "";
         LoginRsDto loginRsDto = LoginRsDto.builder().build();
 
@@ -52,15 +48,14 @@ public class AuthenticationServicempl implements AuthenticationService {
             String userLogin = cl.getLogin();
             String userPassword = cl.getPassword();
 
-            if (rqLogin.equals(userLogin) && rqPassword.equals(userPassword)) {
-
-                tokenData.put("clientType", "user");
-                tokenData.put("userID", cl.getId());
-                tokenData.put("username", cl.getName());
-                tokenData.put("token_create_date", new Date().getTime());
+            if (rqLogin.equalsIgnoreCase(userLogin) && rqPassword.equalsIgnoreCase(userPassword)) {
+                tokenData.put(TokenData.CLIENT.getTokenData(), "user");
+                tokenData.put(TokenData.ID.getTokenData(), cl.getId());
+                tokenData.put(TokenData.NAME.getTokenData(), cl.getName());
+                tokenData.put(TokenData.CREATE_DATE.getTokenData(), new Date().getTime());
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.YEAR, 100);
-                tokenData.put("token_expiration_date", calendar.getTime());
+                tokenData.put(TokenData.EXPIRATION_DATE.getTokenData(), calendar.getTime());
                 JwtBuilder jwtBuilder = Jwts.builder();
                 jwtBuilder.setExpiration(calendar.getTime());
                 jwtBuilder.setClaims(tokenData);
@@ -68,13 +63,13 @@ public class AuthenticationServicempl implements AuthenticationService {
                 token = jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact();
                 usersTokenRepository.getUsersTokenList().add(new UsersToken(rqLogin, "Bearer " + token));
 
-                ver = true;
-                loginRsDto.setVerification(ver);
+                verification = true;
+                loginRsDto.setVerification(verification);
                 loginRsDto.setToken(token);
                 loginRsDto.setId(cl.getId());
                 return loginRsDto;
             }
-            loginRsDto.setVerification(ver);
+            loginRsDto.setVerification(verification);
             return loginRsDto;
         } catch (Error e) {
             return null;
@@ -82,25 +77,25 @@ public class AuthenticationServicempl implements AuthenticationService {
     }
 
     @Override
-    public RegistrationRsDto Registration(RegistrationRqDto registrationRqDto) {
-        boolean ver = true;
+    public RegistrationRsDto registration(RegistrationRqDto registrationRqDto) {
+        boolean verefication = true;
         Map<String, Object> tokenData = new HashMap<>();
         String token = "";
 //        Client newClient;
 
-        String rqLogin = registrationRqDto.getLogin().toLowerCase(Locale.ROOT);
-        String rqEmail = registrationRqDto.getEmail().toLowerCase(Locale.ROOT);
+        String rqLogin = registrationRqDto.getLogin();
+        String rqEmail = registrationRqDto.getEmail();
 
         try {
 
             for (Client cl : clientRepository.findAll()) {
-                String userLogin = cl.getLogin().toLowerCase(Locale.ROOT);
-                String userEmail = cl.getEmail().toLowerCase(Locale.ROOT);
+                String userLogin = cl.getLogin();
+                String userEmail = cl.getEmail();
 
-                if (rqLogin.equals(userLogin) || rqEmail.equals(userEmail)) {
+                if (rqLogin.equalsIgnoreCase(userLogin) || rqEmail.equalsIgnoreCase(userEmail)) {
                     RegistrationRsDto registrationRsDto = RegistrationRsDto.builder().build();
-                    ver = false;
-                    registrationRsDto.setVerification(ver);
+                    verefication = false;
+                    registrationRsDto.setVerification(verefication);
                     return registrationRsDto;
                 }
             }
@@ -108,18 +103,22 @@ public class AuthenticationServicempl implements AuthenticationService {
 //            newClient = clientRepository.save(new Client(registrationRqDto.getSurname(), registrationRqDto.getName(),
 //                    registrationRqDto.getMiddleName(), registrationRqDto.getDateOfBirth(), registrationRqDto.getPhone(), registrationRqDto.getEmail(),
 //                    registrationRqDto.getLogin().toLowerCase(Locale.ROOT), registrationRqDto.getPassword().toLowerCase(Locale.ROOT)));
-            clientRepository.save(new Client(registrationRqDto.getSurname(), registrationRqDto.getName(),
-                    registrationRqDto.getMiddleName(), registrationRqDto.getDateOfBirth(), registrationRqDto.getPhone(), registrationRqDto.getEmail(),
-                    registrationRqDto.getLogin().toLowerCase(Locale.ROOT), registrationRqDto.getPassword().toLowerCase(Locale.ROOT)));
 
-            tokenData.put("clientType", "user");
+//            clientRepository.save(new Client(registrationRqDto.getSurname(), registrationRqDto.getName(),
+//                    registrationRqDto.getMiddleName(), registrationRqDto.getDateOfBirth(), registrationRqDto.getPhone(), registrationRqDto.getEmail(),
+//                    registrationRqDto.getLogin().toLowerCase(Locale.ROOT), registrationRqDto.getPassword().toLowerCase(Locale.ROOT)));
+
+            clientRepository.save((Client.builder().surname(registrationRqDto.getSurname()).name(registrationRqDto.getName()).middlename(registrationRqDto.getMiddleName())
+                    .dateOfBirth(registrationRqDto.getDateOfBirth()).phone(registrationRqDto.getPhone()).email(registrationRqDto.getEmail())
+                    .login(registrationRqDto.getLogin()).password(registrationRqDto.getPassword()).build()));
+            tokenData.put(TokenData.CLIENT.getTokenData(), "user");
 //            tokenData.put("userID", newClient.getId());
-            tokenData.put("userID", clientRepository.getClientByLogin(rqLogin).getId());
-            tokenData.put("username", registrationRqDto.getSurname() + " " + registrationRqDto.getName() + " " + registrationRqDto.getMiddleName());
-            tokenData.put("token_create_date", new Date().getTime());
+            tokenData.put(TokenData.ID.getTokenData(), clientRepository.getClientByLogin(rqLogin).getId());
+            tokenData.put(TokenData.NAME.getTokenData(), registrationRqDto.getSurname() + " " + registrationRqDto.getName() + " " + registrationRqDto.getMiddleName());
+            tokenData.put(TokenData.CREATE_DATE.getTokenData(), new Date().getTime());
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.YEAR, 100);
-            tokenData.put("token_expiration_date", calendar.getTime());
+            tokenData.put(TokenData.EXPIRATION_DATE.getTokenData(), calendar.getTime());
             JwtBuilder jwtBuilder = Jwts.builder();
             jwtBuilder.setExpiration(calendar.getTime());
             jwtBuilder.setClaims(tokenData);
@@ -128,12 +127,12 @@ public class AuthenticationServicempl implements AuthenticationService {
             usersTokenRepository.getUsersTokenList().add(new UsersToken(rqLogin, "Bearer " + token));
         } catch (Error e) {
             RegistrationRsDto registrationRsDto = RegistrationRsDto.builder().build();
-            ver = false;
-            registrationRsDto.setVerification(ver);
+            verefication = false;
+            registrationRsDto.setVerification(verefication);
             return registrationRsDto;
         }
 
-        return RegistrationRsDto.builder().verification(ver).token(token).id(clientRepository.getClientByLogin(rqLogin).getId()).build();
+        return RegistrationRsDto.builder().verification(verefication).token(token).id(clientRepository.getClientByLogin(rqLogin).getId()).build();
     }
 
     @Override

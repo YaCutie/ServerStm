@@ -26,21 +26,21 @@ public class Reception {
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "personalid")
-    private Personal personalid;
+    private Personal personalId;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "scheduleid")
-    private Appointment scheduleid;
+    private Appointment scheduleId;
 
     @Column(name = "datetimeservice", nullable = false)
-    private Instant datetimeservice;
+    private Instant datetimeService;
 
     @Column(name = "sum", nullable = false)
     private BigDecimal sum;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "clientid")
-    private Client clientid;
+    private Client clientId;
 
     public Integer getId() {
         return id;
@@ -74,28 +74,28 @@ public class Reception {
         this.treatmentPlan = treatmentPlan;
     }
 
-    public Personal getPersonalid() {
-        return personalid;
+    public Personal getPersonalId() {
+        return personalId;
     }
 
-    public void setPersonalid(Personal personalid) {
-        this.personalid = personalid;
+    public void setPersonalId(Personal personalid) {
+        this.personalId = personalid;
     }
 
-    public Appointment getScheduleid() {
-        return scheduleid;
+    public Appointment getScheduleId() {
+        return scheduleId;
     }
 
-    public void setScheduleid(Appointment scheduleid) {
-        this.scheduleid = scheduleid;
+    public void setScheduleId(Appointment scheduleid) {
+        this.scheduleId = scheduleid;
     }
 
-    public Instant getDatetimeservice() {
-        return datetimeservice;
+    public Instant getDatetimeService() {
+        return datetimeService;
     }
 
-    public void setDatetimeservice(Instant datetimeservice) {
-        this.datetimeservice = datetimeservice;
+    public void setDatetimeService(Instant datetimeservice) {
+        this.datetimeService = datetimeservice;
     }
 
     public BigDecimal getSum() {
@@ -106,12 +106,12 @@ public class Reception {
         this.sum = sum;
     }
 
-    public Client getClientid() {
-        return clientid;
+    public Client getClientId() {
+        return clientId;
     }
 
-    public void setClientid(Client clientid) {
-        this.clientid = clientid;
+    public void setClientId(Client clientid) {
+        this.clientId = clientid;
     }
 
 }

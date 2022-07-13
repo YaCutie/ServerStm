@@ -12,7 +12,7 @@ public class Specialization {
 
 
     @Column(name = "specializationname", nullable = false)
-    private String specializationname;
+    private String specializationName;
 
     public Integer getId() {
         return id;
@@ -22,12 +22,12 @@ public class Specialization {
         this.id = id;
     }
 
-    public String getSpecializationname() {
-        return specializationname;
+    public String getSpecializationName() {
+        return specializationName;
     }
 
-    public void setSpecializationname(String specializationname) {
-        this.specializationname = specializationname;
+    public void setSpecializationName(String specializationname) {
+        this.specializationName = specializationname;
     }
 
 }

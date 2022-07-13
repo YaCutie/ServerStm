@@ -20,11 +20,11 @@ public class Contract {
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "clientid")
-    private Client clientid;
+    private Client clientId;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "personalid")
-    private Personal personalid;
+    private Personal personalId;
 
     public Integer getId() {
         return id;
@@ -50,20 +50,20 @@ public class Contract {
         this.dateContract = dateContract;
     }
 
-    public Client getClientid() {
-        return clientid;
+    public Client getClientId() {
+        return clientId;
     }
 
-    public void setClientid(Client clientid) {
-        this.clientid = clientid;
+    public void setClientId(Client clientid) {
+        this.clientId = clientid;
     }
 
-    public Personal getPersonalid() {
-        return personalid;
+    public Personal getPersonalId() {
+        return personalId;
     }
 
-    public void setPersonalid(Personal personalid) {
-        this.personalid = personalid;
+    public void setPersonalId(Personal personalid) {
+        this.personalId = personalid;
     }
 
 }

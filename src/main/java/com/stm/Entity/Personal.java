@@ -2,7 +2,6 @@ package com.stm.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -70,7 +69,7 @@ public class Personal {
 
     @ManyToOne(fetch = FetchType. EAGER, optional = false)
     @JoinColumn(name = "specializationid", nullable = false)
-    private Specialization specializationid;
+    private Specialization specializationId;
 
 
     @Column(name = "category")
@@ -195,12 +194,12 @@ public class Personal {
         this.photo = photo;
     }
 
-    public Specialization getSpecializationid() {
-        return specializationid;
+    public Specialization getSpecializationId() {
+        return specializationId;
     }
 
-    public void setSpecializationid(Specialization specializationid) {
-        this.specializationid = specializationid;
+    public void setSpecializationId(Specialization specializationid) {
+        this.specializationId = specializationid;
     }
 
     public String getCategory() {

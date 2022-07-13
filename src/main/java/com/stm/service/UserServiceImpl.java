@@ -4,20 +4,10 @@ import com.stm.Entity.*;
 import com.stm.dto.GetAllAppointmentByUserIdRqDto;
 import com.stm.dto.GetClientByIdRsDto;
 import com.stm.dto.NewAppointmentRqDto;
-import com.stm.dto.SendFileRqDto;
 import com.stm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 import java.text.ParseException;
 import java.util.*;
@@ -59,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Doctorsschedule> getAllDoctorsscheduleByPersonal(int id) {
-        return doctorScheduleRepository.findByPersonidIdOrderByDay(id);
+        return doctorScheduleRepository.findByPersonIdIdOrderByDay(id);
     }
 
     @Override
@@ -69,8 +59,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean NewAppoitment(NewAppointmentRqDto newAppointmentRqDto) throws ParseException {
-        Appointment newAppointment = new Appointment(newAppointmentRqDto.getReceptionTime(), clientRepository.getClientById(newAppointmentRqDto.getClientid()),
-                clinicRepository.getClinicById(newAppointmentRqDto.getClinicid()), personalRepository.getPersonalById(newAppointmentRqDto.getPersonalid()),
+        Appointment newAppointment = new Appointment(newAppointmentRqDto.getReceptionTime(), clientRepository.getClientById(newAppointmentRqDto.getClientId()),
+                clinicRepository.getClinicById(newAppointmentRqDto.getClinicId()), personalRepository.getPersonalById(newAppointmentRqDto.getPersonalId()),
                 newAppointmentRqDto.getCabinetNumber(), statuteRepository.getStatuteById(newAppointmentRqDto.getStatus()));
         try {
             appointmentRepository.save(newAppointment);
@@ -82,6 +72,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Appointment> GetAllAppointmentByUserId(GetAllAppointmentByUserIdRqDto getAllAppointmentByUserIdRqDto) {
-        return appointmentRepository.findByClientidId(getAllAppointmentByUserIdRqDto.getId());
+        return appointmentRepository.findByClientIdId(getAllAppointmentByUserIdRqDto.getId());
     }
 }

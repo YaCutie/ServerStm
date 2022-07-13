@@ -1,16 +1,13 @@
 package com.stm.service;
 
 import com.stm.Entity.*;
-import com.stm.autentification.AuthenticationServicempl;
 import com.stm.dto.*;
 import com.stm.repository.*;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -97,27 +94,27 @@ public class UserServiceTest {
     @Test
     public void shouldGetAllDoctorsscheduleByPersonalTrue(){
         int id = 1;
-        Doctorsschedule doctorsschedule = Doctorsschedule.builder().id(1).day(2).personid(Personal.builder().id(1).name("asd").build()).build();
+        Doctorsschedule doctorsschedule = Doctorsschedule.builder().id(1).day(2).personId(Personal.builder().id(1).name("asd").build()).build();
         List<Doctorsschedule> list = new ArrayList<>();
         list.add(doctorsschedule);
-        when(doctorScheduleRepository.findByPersonidIdOrderByDay(anyInt())).thenReturn(list);
+        when(doctorScheduleRepository.findByPersonIdIdOrderByDay(anyInt())).thenReturn(list);
 
         List<Doctorsschedule> all = userService.getAllDoctorsscheduleByPersonal(id);
 
         assertEquals(doctorsschedule, all.get(0));
-        verify(doctorScheduleRepository).findByPersonidIdOrderByDay(eq(1));
+        verify(doctorScheduleRepository).findByPersonIdIdOrderByDay(eq(1));
     }
 
     @Test
     public void shouldGetAllDoctorsscheduleByPersonalFalse(){
         int id = 1;
         List<Doctorsschedule> list = new ArrayList<>();
-        when(doctorScheduleRepository.findByPersonidIdOrderByDay(anyInt())).thenReturn(list);
+        when(doctorScheduleRepository.findByPersonIdIdOrderByDay(anyInt())).thenReturn(list);
 
         List<Doctorsschedule> all = userService.getAllDoctorsscheduleByPersonal(id);
 
         assertEquals(0, all.size());
-        verify(doctorScheduleRepository).findByPersonidIdOrderByDay(eq(1));
+        verify(doctorScheduleRepository).findByPersonIdIdOrderByDay(eq(1));
     }
 
     @Test
@@ -145,16 +142,16 @@ public class UserServiceTest {
 
     @Test
     public void shouldGetAllAppointmentByUserIdTrue(){
-        Appointment appointment = Appointment.builder().clientid(Client.builder().id(1).build()).cabinetNumber(27).build();
+        Appointment appointment = Appointment.builder().clientId(Client.builder().id(1).build()).cabinetNumber(27).build();
         List<Appointment> list = new ArrayList<>();
         list.add(appointment);
         GetAllAppointmentByUserIdRqDto getAllAppointmentByUserIdRqDto = GetAllAppointmentByUserIdRqDto.builder().id(1).build();
-        when(appointmentRepository.findByClientidId(anyInt())).thenReturn(list);
+        when(appointmentRepository.findByClientIdId(anyInt())).thenReturn(list);
 
         List<Appointment> all = userService.GetAllAppointmentByUserId(getAllAppointmentByUserIdRqDto);
 
         assertEquals(appointment, all.get(0));
-        verify(appointmentRepository).findByClientidId(eq(1));
+        verify(appointmentRepository).findByClientIdId(eq(1));
     }
 
     @Test
@@ -162,22 +159,22 @@ public class UserServiceTest {
         int id = 1;
         List<Appointment> list = new ArrayList<>();
         GetAllAppointmentByUserIdRqDto getAllAppointmentByUserIdRqDto = GetAllAppointmentByUserIdRqDto.builder().id(1).build();
-        when(appointmentRepository.findByClientidId(anyInt())).thenReturn(list);
+        when(appointmentRepository.findByClientIdId(anyInt())).thenReturn(list);
 
         List<Appointment> all = userService.GetAllAppointmentByUserId(getAllAppointmentByUserIdRqDto);
 
         assertEquals(0, all.size());
-        verify(appointmentRepository).findByClientidId(eq(1));
+        verify(appointmentRepository).findByClientIdId(eq(1));
     }
 
     @Test
     public void shouldNewAppoitmentTrue() throws ParseException {
-        NewAppointmentRqDto newAppointmentRqDto = NewAppointmentRqDto.builder().receptionTime("2022-07-07 8:00").clientid(1).personalid(1)
-                .clinicid(1).cabinetNumber(27).status(1).build();
+        NewAppointmentRqDto newAppointmentRqDto = NewAppointmentRqDto.builder().receptionTime("2022-07-07 8:00").clientId(1).personalId(1)
+                .clinicId(1).cabinetNumber(27).status(1).build();
         Client client = Client.builder().id(1).name("asd").build();
         Clinic clinic = Clinic.builder().id(1).clinicName("asd").build();
         Personal personal = Personal.builder().id(1).name("asd").build();
-        Statute statute = Statute.builder().id(1).statusname("new").build();
+        Statute statute = Statute.builder().id(1).statusName("new").build();
         when(clientRepository.getClientById(anyInt())).thenReturn(client);
         when(clinicRepository.getClinicById(anyInt())).thenReturn(clinic);
         when(personalRepository.getPersonalById(anyInt())).thenReturn(personal);
@@ -196,8 +193,8 @@ public class UserServiceTest {
 
     @Test
     public void shouldNewAppoitmentFalse() throws ParseException {
-        NewAppointmentRqDto newAppointmentRqDto = NewAppointmentRqDto.builder().receptionTime("2022-07-07 8:00").clientid(1).personalid(1)
-                .clinicid(1).cabinetNumber(27).status(1).build();
+        NewAppointmentRqDto newAppointmentRqDto = NewAppointmentRqDto.builder().receptionTime("2022-07-07 8:00").clientId(1).personalId(1)
+                .clinicId(1).cabinetNumber(27).status(1).build();
         when(clientRepository.getClientById(anyInt())).thenReturn(null);
         when(clinicRepository.getClinicById(anyInt())).thenReturn(null);
         when(personalRepository.getPersonalById(anyInt())).thenReturn(null);

@@ -2,7 +2,6 @@ package com.stm.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -26,11 +25,11 @@ public class Service {
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "materialid")
-    private Material materialid;
+    private Material materialId;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "clinicid")
-    private Clinic clinicid;
+    private Clinic clinicId;
 
     public Service() {
 
@@ -60,20 +59,20 @@ public class Service {
         this.price = price;
     }
 
-    public Material getMaterialid() {
-        return materialid;
+    public Material getMaterialId() {
+        return materialId;
     }
 
-    public void setMaterialid(Material materialid) {
-        this.materialid = materialid;
+    public void setMaterialId(Material materialid) {
+        this.materialId = materialid;
     }
 
-    public Clinic getClinicid() {
-        return clinicid;
+    public Clinic getClinicId() {
+        return clinicId;
     }
 
-    public void setClinicid(Clinic clinicid) {
-        this.clinicid = clinicid;
+    public void setClinicId(Clinic clinicid) {
+        this.clinicId = clinicid;
     }
 
 }

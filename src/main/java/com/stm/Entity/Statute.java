@@ -19,7 +19,7 @@ public class Statute {
     private Integer id;
 
     @Column(name = "statusname", nullable = false)
-    private String statusname;
+    private String statusName;
 
     public Integer getId() {
         return id;
@@ -29,12 +29,12 @@ public class Statute {
         this.id = id;
     }
 
-    public String getStatusname() {
-        return statusname;
+    public String getStatusName() {
+        return statusName;
     }
 
-    public void setStatusname(String statusname) {
-        this.statusname = statusname;
+    public void setStatusName(String statusname) {
+        this.statusName = statusname;
     }
 
 }

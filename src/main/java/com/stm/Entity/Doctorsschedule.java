@@ -18,24 +18,23 @@ public class Doctorsschedule {
 
     @ManyToOne(fetch = FetchType. EAGER, optional = false)
     @JoinColumn(name = "clinicid", nullable = false)
-    private Clinic clinicid;
+    private Clinic clinicId;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "personid")
-    private Personal personid;
-
+    private Personal personId;
 
     @Column(name = "cabinet")
     private String cabinet;
 
     @Column(name = "starttime")
-    private LocalTime starttime;
+    private LocalTime startTime;
 
     @Column(name = "stoptime")
-    private LocalTime stoptime;
+    private LocalTime stopTime;
 
     @Column(name = "durationofreception")
-    private LocalTime durationofreception;
+    private LocalTime durationOfReception;
 
     @Column(name = "day")
     private Integer day;
@@ -52,20 +51,20 @@ public class Doctorsschedule {
         this.id = id;
     }
 
-    public Clinic getClinicid() {
-        return clinicid;
+    public Clinic getClinicId() {
+        return clinicId;
     }
 
-    public void setClinicid(Clinic clinicid) {
-        this.clinicid = clinicid;
+    public void setClinicId(Clinic clinicid) {
+        this.clinicId = clinicid;
     }
 
-    public Personal getPersonid() {
-        return personid;
+    public Personal getPersonId() {
+        return personId;
     }
 
-    public void setPersonid(Personal personid) {
-        this.personid = personid;
+    public void setPersonId(Personal personid) {
+        this.personId = personid;
     }
 
     public String getCabinet() {
@@ -76,28 +75,28 @@ public class Doctorsschedule {
         this.cabinet = cabinet;
     }
 
-    public LocalTime getStarttime() {
-        return starttime;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setStarttime(LocalTime starttime) {
-        this.starttime = starttime;
+    public void setStartTime(LocalTime starttime) {
+        this.startTime = starttime;
     }
 
-    public LocalTime getStoptime() {
-        return stoptime;
+    public LocalTime getStopTime() {
+        return stopTime;
     }
 
-    public void setStoptime(LocalTime stoptime) {
-        this.stoptime = stoptime;
+    public void setStopTime(LocalTime stoptime) {
+        this.stopTime = stoptime;
     }
 
-    public LocalTime getDurationofreception() {
-        return durationofreception;
+    public LocalTime getDurationOfReception() {
+        return durationOfReception;
     }
 
-    public void setDurationofreception(LocalTime durationofreception) {
-        this.durationofreception = durationofreception;
+    public void setDurationOfReception(LocalTime durationofreception) {
+        this.durationOfReception = durationofreception;
     }
 
     public Integer getDay() {

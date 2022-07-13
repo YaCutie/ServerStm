@@ -1,21 +1,15 @@
 package com.stm.dto;
 
-import com.stm.Entity.Client;
-import com.stm.Entity.Clinic;
-import com.stm.Entity.Personal;
-import com.stm.Entity.Statute;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import java.time.Instant;
 
 @Builder
 @AllArgsConstructor
 public class NewAppointmentRqDto {
     private String receptionTime;
-    private Integer clientid;
-    private Integer clinicid;
-    private Integer personalid;
+    private Integer clientId;
+    private Integer clinicId;
+    private Integer personalId;
     private Integer cabinetNumber;
     private Integer status;
 
@@ -35,28 +29,28 @@ public class NewAppointmentRqDto {
         this.cabinetNumber = cabinetNumber;
     }
 
-    public Integer getPersonalid() {
-        return personalid;
+    public Integer getPersonalId() {
+        return personalId;
     }
 
-    public void setPersonalid(Integer personalid) {
-        this.personalid = personalid;
+    public void setPersonalId(Integer personalId) {
+        this.personalId = personalId;
     }
 
-    public Integer getClinicid() {
-        return clinicid;
+    public Integer getClinicId() {
+        return clinicId;
     }
 
-    public void setClinicid(Integer clinicid) {
-        this.clinicid = clinicid;
+    public void setClinicId(Integer clinicId) {
+        this.clinicId = clinicId;
     }
 
-    public Integer getClientid() {
-        return clientid;
+    public Integer getClientId() {
+        return clientId;
     }
 
-    public void setClientid(Integer clientid) {
-        this.clientid = clientid;
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 
     public String getReceptionTime() {

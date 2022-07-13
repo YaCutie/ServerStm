@@ -1,7 +1,6 @@
 package com.stm.service;
 
 import com.stm.Entity.Client;
-import com.stm.Entity.Statute;
 import com.stm.autentification.AuthenticationServicempl;
 import com.stm.dto.LoginRqDto;
 import com.stm.dto.LoginRsDto;
@@ -10,14 +9,9 @@ import com.stm.dto.RegistrationRsDto;
 import com.stm.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -50,7 +44,7 @@ public class AuthenticationServiceTest {
         LoginRqDto loginRqDto = LoginRqDto.builder().login("zab").password("123").build();
         when(clientRepository.getByLogin(anyString())).thenReturn(client);
 
-        LoginRsDto loginRsDto = authenticationServicempl.Verification(loginRqDto);
+        LoginRsDto loginRsDto = authenticationServicempl.verification(loginRqDto);
 
         assertTrue(loginRsDto.isVerification());
         verify(clientRepository).getByLogin(eq("zab"));
@@ -63,7 +57,7 @@ public class AuthenticationServiceTest {
         LoginRqDto loginRqDto = LoginRqDto.builder().login("zab").password("1234").build();
         when(clientRepository.getByLogin(anyString())).thenReturn(client);
 
-        LoginRsDto loginRsDto = authenticationServicempl.Verification(loginRqDto);
+        LoginRsDto loginRsDto = authenticationServicempl.verification(loginRqDto);
 
         assertFalse(loginRsDto.isVerification());
         verify(clientRepository).getByLogin(eq("zab"));
@@ -76,7 +70,7 @@ public class AuthenticationServiceTest {
         LoginRqDto loginRqDto = LoginRqDto.builder().login("zab1").password("123").build();
         when(clientRepository.getByLogin(anyString())).thenReturn(client);
 
-        LoginRsDto loginRsDto = authenticationServicempl.Verification(loginRqDto);
+        LoginRsDto loginRsDto = authenticationServicempl.verification(loginRqDto);
 
         assertFalse(loginRsDto.isVerification());
         verify(clientRepository).getByLogin(eq("zab1"));
@@ -96,7 +90,7 @@ public class AuthenticationServiceTest {
         when(clientRepository.save(any(Client.class))).thenReturn(client2);
         when(clientRepository.getClientByLogin(anyString())).thenReturn(client2);
 
-        RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
+        RegistrationRsDto registrationRsDto = authenticationServicempl.registration(registrationRqDto);
 
         assertTrue(registrationRsDto.isVerification());
         assertEquals(2, registrationRsDto.getId());
@@ -114,7 +108,7 @@ public class AuthenticationServiceTest {
         when(clientRepository.save(any(Client.class))).thenReturn(client2);
         when(clientRepository.getClientByLogin(anyString())).thenReturn(client2);
 
-        RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
+        RegistrationRsDto registrationRsDto = authenticationServicempl.registration(registrationRqDto);
 
         assertTrue(registrationRsDto.isVerification());
         assertEquals(2, registrationRsDto.getId());
@@ -131,7 +125,7 @@ public class AuthenticationServiceTest {
                 .phone("12345").email("asd@mail").login("zab").password("123").build();
         when(clientRepository.findAll()).thenReturn(list);
 
-        RegistrationRsDto registrationRsDto = authenticationServicempl.Registration(registrationRqDto);
+        RegistrationRsDto registrationRsDto = authenticationServicempl.registration(registrationRqDto);
 
         assertFalse(registrationRsDto.isVerification());
     }

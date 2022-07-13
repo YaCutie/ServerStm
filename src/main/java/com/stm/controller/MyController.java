@@ -40,7 +40,7 @@ public class MyController {
     }
     @PostMapping(path="/user/newappoitment", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean NewAppointment(@RequestBody NewAppointmentRqDto newAppointmentRqDto) throws SQLException, ParseException {
-        boolean accept = false;
+        boolean accept;
         accept = userService.NewAppoitment(newAppointmentRqDto);
         return accept;
     }

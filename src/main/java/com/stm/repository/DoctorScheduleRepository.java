@@ -11,5 +11,5 @@ public interface DoctorScheduleRepository extends JpaRepository<Doctorsschedule,
     @Override
     List<Doctorsschedule> findAll();
     Doctorsschedule getById(int id);
-    List<Doctorsschedule> findByPersonidIdOrderByDay(int id);
+    List<Doctorsschedule> findByPersonIdIdOrderByDay(int id);
 }

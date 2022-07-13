@@ -12,22 +12,22 @@ public class ToothHistory {
     private Integer id;
 
     @Column(name = "toothnumber", nullable = false)
-    private Integer toothnumber;
+    private Integer toothNumber;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "clientid")
-    private Client clientid;
+    private Client clientId;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "servicesid")
-    private Service servicesid;
+    private Service servicesId;
 
     @ManyToOne(fetch = FetchType. EAGER)
     @JoinColumn(name = "receptionid")
-    private Reception receptionid;
+    private Reception receptionId;
 
     @Column(name = "datetimeservice", nullable = false)
-    private Instant datetimeservice;
+    private Instant datetimeService;
 
     public Integer getId() {
         return id;
@@ -37,44 +37,44 @@ public class ToothHistory {
         this.id = id;
     }
 
-    public Integer getToothnumber() {
-        return toothnumber;
+    public Integer getToothNumber() {
+        return toothNumber;
     }
 
-    public void setToothnumber(Integer toothnumber) {
-        this.toothnumber = toothnumber;
+    public void setToothNumber(Integer toothnumber) {
+        this.toothNumber = toothnumber;
     }
 
-    public Client getClientid() {
-        return clientid;
+    public Client getClientId() {
+        return clientId;
     }
 
-    public void setClientid(Client clientid) {
-        this.clientid = clientid;
+    public void setClientId(Client clientid) {
+        this.clientId = clientid;
     }
 
-    public Service getServicesid() {
-        return servicesid;
+    public Service getServicesId() {
+        return servicesId;
     }
 
-    public void setServicesid(Service servicesid) {
-        this.servicesid = servicesid;
+    public void setServicesId(Service servicesid) {
+        this.servicesId = servicesid;
     }
 
-    public Reception getReceptionid() {
-        return receptionid;
+    public Reception getReceptionId() {
+        return receptionId;
     }
 
-    public void setReceptionid(Reception receptionid) {
-        this.receptionid = receptionid;
+    public void setReceptionId(Reception receptionid) {
+        this.receptionId = receptionid;
     }
 
-    public Instant getDatetimeservice() {
-        return datetimeservice;
+    public Instant getDatetimeService() {
+        return datetimeService;
     }
 
-    public void setDatetimeservice(Instant datetimeservice) {
-        this.datetimeservice = datetimeservice;
+    public void setDatetimeService(Instant datetimeservice) {
+        this.datetimeService = datetimeservice;
     }
 
 }
