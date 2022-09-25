@@ -50,7 +50,7 @@ public class UserServiceTest {
 
         GetClientByIdRsDto getClientByIdRsDto = userService.getById(id);
 
-        assertEquals(client, getClientByIdRsDto.getСlient());
+        assertEquals(client, getClientByIdRsDto.getClient());
         verify(clientRepository).getClientById(eq(1));
     }
 
@@ -61,7 +61,7 @@ public class UserServiceTest {
 
         GetClientByIdRsDto getClientByIdRsDto = userService.getById(id);
 
-        assertNull(getClientByIdRsDto.getСlient());
+        assertNull(getClientByIdRsDto.getClient());
         verify(clientRepository).getClientById(eq(1));
     }
 

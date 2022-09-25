@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GetClientByIdRsDto getById(int id) {
         GetClientByIdRsDto getClientByIdRsDto = new GetClientByIdRsDto();
-        getClientByIdRsDto.setСlient(clientRepository.getClientById(id));
+        getClientByIdRsDto.setClient(clientRepository.getClientById(id));
         return getClientByIdRsDto;
     }
 
