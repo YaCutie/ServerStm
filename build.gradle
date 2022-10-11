@@ -27,25 +27,19 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     developmentOnly 'org.springframework.boot:spring-boot-devtools:2.7.0'
     runtimeOnly 'com.h2database:h2:2.1.212'
-    runtimeOnly 'org.postgresql:postgresql:42.3.6'
+    runtimeOnly 'org.postgresql:postgresql:42.3.7'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
     testImplementation 'org.springframework.security:spring-security-test:5.7.1'
-//    annotationProcessor("io.micronaut.data:micronaut-data-processor")
-//    annotationProcessor("io.micronaut:micronaut-http-validation")
-//    annotationProcessor("io.micronaut.security:micronaut-security-annotations")
-//    implementation("io.micronaut:micronaut-http-client")
-//    implementation("io.micronaut:micronaut-jackson-databind")
-//    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
-//    implementation("io.micronaut.security:micronaut-security-jwt")
-//    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("jakarta.annotation:jakarta.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")
-//    implementation("io.micronaut:micronaut-validation")
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.4.19'
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 java {
